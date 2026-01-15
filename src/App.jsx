@@ -1,6 +1,6 @@
 import Input from "./components/Input";
 import AddNoteButton from "./components/AddNoteButton";
-import NotesList from "./components/Note";
+import Note from "./components/Note";
 
 export default function App() {
   return (
@@ -10,7 +10,7 @@ export default function App() {
         <AddNoteButton />
         <section>
           <h2 className="text-2xl font-bold mb-4 mt-4">Notes</h2>
-          <NotesList />
+          <Note title="Sample Title" content="Sample content for the note." />
         </section>
       </div>
     </main>
