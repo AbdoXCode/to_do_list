@@ -4,16 +4,14 @@ import Note from "./components/Note";
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [notes, setNotes] = useState([
-    {
-      id: 1,
-      content: "Hello This is a React App",
-      completed: false,
-    },
-  ]);
+  const [notes, setNotes] = useState(() => {
+    const notes = localStorage.getItem("notes");
+    return notes ? JSON.parse(notes) : [];
+  });
   const [inputValue, setInputValue] = useState("");
 
   function addNote(content) {
+    if (!content) return;
     const newNote = {
       id: notes.length + 1,
       content: content,
@@ -33,6 +31,9 @@ export default function App() {
     );
   }
 
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
   return (
     <main className="flex justify-center items-center h-screen">
       <div>
