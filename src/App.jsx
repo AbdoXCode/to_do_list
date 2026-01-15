@@ -57,7 +57,7 @@ export default function App() {
   }, [notes]);
   return (
     <main
-      className={`flex justify-center items-center h-screen ${
+      className={`flex justify-center items-center min-h-screen ${
         darkMode ? "dark" : ""
       } dark:bg-gray-700`}
     >
