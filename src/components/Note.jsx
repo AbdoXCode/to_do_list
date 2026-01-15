@@ -1,9 +1,9 @@
 export default function Note(props) {
   return (
     <section>
-      <article className="flex justify-between items-center max-w-120 border p-4 rounded-sm mb-4 shadow-sm hover:shadow-md transition-shadow duration-200 m-2">
+      <article className="flex justify-between items-center max-w-120 border p-4 rounded-sm mb-4 shadow-sm hover:shadow-md transition-shadow duration-200 m-2 dark:border-gray-600">
         <p
-          className={`text-gray-700 break-words ${
+          className={`text-gray-700 break-words dark:text-white dark:border-gray-600 ${
             props.completed ? "line-through" : ""
           }`}
         >
@@ -12,7 +12,7 @@ export default function Note(props) {
         <div>
           <button
             onClick={props.onComp}
-            className="border-0 p-1 rounded-sm bg-green-700 hover:bg-green-800 cursor-pointer outline-0 mr-2"
+            className="border-0 p-1 rounded-sm bg-green-700 hover:bg-green-800 cursor-pointer outline-0 mr-2 dark:bg-green-600 dark:hover:bg-green-700"
           >
             <svg
               className="w-5 h-5 text-white dark:text-white"
@@ -32,7 +32,7 @@ export default function Note(props) {
           </button>
           <button
             onClick={props.onDel}
-            className="border-0 p-1 rounded-sm bg-red-700 hover:bg-red-800 cursor-pointer outline-0"
+            className="border-0 p-1 rounded-sm bg-red-700 hover:bg-red-800 cursor-pointer outline-0 dark:bg-red-600 dark:hover:bg-red-700"
           >
             <svg
               className="w-5 h-5 text-white dark:text-white"
