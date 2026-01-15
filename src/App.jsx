@@ -35,6 +35,11 @@ export default function App() {
   function toggleDarkMode() {
     setDarkMode((prev) => !prev);
   }
+  function onInputKeyDown(e) {
+    if (e.key === "Enter") {
+      addNote(inputValue);
+    }
+  }
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
@@ -65,7 +70,11 @@ export default function App() {
         </svg>
       </button>
       <div>
-        <Input value={inputValue} onChange={setInputValue} />
+        <Input
+          value={inputValue}
+          onChange={setInputValue}
+          onKey={onInputKeyDown}
+        />
         <AddNoteButton onAdd={() => addNote(inputValue)} />
         <section>
           <h2 className="text-2xl font-bold mb-4 mt-4 dark:text-white">
