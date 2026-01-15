@@ -1,15 +1,27 @@
 import Input from "./components/Input";
 import AddNoteButton from "./components/AddNoteButton";
 import Note from "./components/Note";
+import Toast from "./components/Toast";
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    const mode = localStorage.getItem("darkMode");
+    return JSON.parse(mode);
+  });
   const [notes, setNotes] = useState(() => {
     const notes = localStorage.getItem("notes");
     return notes ? JSON.parse(notes) : [];
   });
   const [inputValue, setInputValue] = useState("");
+  const [toast, setToast] = useState(null);
+
+  function showToast(message) {
+    setToast(message);
+    setTimeout(() => {
+      setToast(null);
+    }, 3000);
+  }
 
   function addNote(content) {
     if (!content) return;
@@ -21,9 +33,11 @@ export default function App() {
     setNotes([...notes, newNote]);
     setInputValue("");
   }
+
   function deleteNote(id) {
     setNotes((prev) => prev.filter((note) => note.id != id));
   }
+
   function toggleCompleted(id) {
     setNotes((prev) =>
       prev.map((note) =>
@@ -35,16 +49,25 @@ export default function App() {
   function toggleDarkMode() {
     setDarkMode((prev) => !prev);
   }
+
   function onInputKeyDown(e) {
     if (e.key === "Enter") {
       addNote(inputValue);
     }
   }
+
   function deleteKeyNotes(e) {
     if (e.key === "Delete" && notes.length > 0) {
       deleteNote(notes[notes.length - 1].id);
+    } else if (e.key === "Delete" && notes.length === 0) {
+      showToast("No notes to delete!");
     }
   }
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
+
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
@@ -105,6 +128,7 @@ export default function App() {
           ))}
         </section>
       </div>
+      {toast && <Toast message={toast} />}
     </main>
   );
 }
